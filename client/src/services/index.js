@@ -18,6 +18,28 @@ export const foodService = {
   remove: (id) => api.delete(`/foods/${id}`),
 };
 
+export const nutritionService = {
+  get: (params) => api.get('/nutrition', { params }),
+  targets: () => api.get('/nutrition/targets'),
+  summary: (params) => api.get('/nutrition/summary', { params }),
+  log: (payload) => api.post('/nutrition/log', payload),
+};
+
+export const adminService = {
+  overview: () => api.get('/admin/overview'),
+  users: () => api.get('/admin/users'),
+  optimize: () => api.post('/admin/optimize'),
+  seed: () => api.post('/admin/seed'),
+  foods: () => api.get('/admin/foods'),
+  createFood: (payload) => api.post('/admin/foods', payload),
+  updateFood: (id, payload) => api.put(`/admin/foods/${id}`, payload),
+  deleteFood: (id) => api.delete(`/admin/foods/${id}`),
+  exercises: () => api.get('/admin/exercises'),
+  createExercise: (payload) => api.post('/admin/exercises', payload),
+  updateExercise: (id, payload) => api.put(`/admin/exercises/${id}`, payload),
+  deleteExercise: (id) => api.delete(`/admin/exercises/${id}`),
+};
+
 export const foodLogService = {
   today: (params) => api.get('/food-logs/today', { params }),
   list: (params) => api.get('/food-logs', { params }),

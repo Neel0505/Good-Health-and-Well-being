@@ -6,7 +6,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import EmptyState from '../components/EmptyState';
 import { ProgressCard } from '../components/StatCard';
 import Disclaimer from '../components/Disclaimer';
-import { foodLogService, foodService, userService } from '../services';
+import { foodLogService, foodService, nutritionService } from '../services';
 import {
   FOOD_CATEGORIES,
   MEAL_TYPES,
@@ -46,14 +46,13 @@ const Nutrition = () => {
     setLoading(true);
     setError('');
     try {
-      const [foodRes, logRes, profileRes] = await Promise.all([
+      const [foodRes, nutritionRes] = await Promise.all([
         foodService.list({ search, category }),
-        foodLogService.today(),
-        userService.getProfile(),
+        nutritionService.get(),
       ]);
       setFoods(foodRes.data.data.foods);
-      setLogsData(logRes.data.data);
-      setTargets(profileRes.data.data.targets);
+      setLogsData(nutritionRes.data.data);
+      setTargets(nutritionRes.data.data.targets);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -78,7 +77,7 @@ const Nutrition = () => {
     if (!quantity || Number(quantity) <= 0) return setFormError('Enter a positive quantity');
     setSaving(true);
     try {
-      await foodLogService.create({
+      await nutritionService.log({
         foodId: selectedFood._id,
         quantity: Number(quantity),
         mealType,

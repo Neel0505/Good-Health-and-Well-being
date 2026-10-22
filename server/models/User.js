@@ -61,6 +61,11 @@ const userSchema = new mongoose.Schema(
       default: 2500,
       min: 500,
     },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
+    },
   },
   { timestamps: true }
 );
@@ -88,6 +93,7 @@ userSchema.methods.toSafeObject = function toSafeObject() {
     fitnessGoal: this.fitnessGoal,
     activityLevel: this.activityLevel,
     waterTarget: this.waterTarget,
+    role: this.role || 'user',
     createdAt: this.createdAt,
     updatedAt: this.updatedAt,
   };

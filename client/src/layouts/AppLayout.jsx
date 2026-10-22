@@ -12,9 +12,12 @@ const links = [
 ];
 
 const AppLayout = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const navLinks = isAdmin
+    ? [...links, { to: '/app/admin', label: 'Admin', icon: 'bi-shield-check' }]
+    : links;
 
   const handleLogout = () => {
     logout();
@@ -41,7 +44,7 @@ const AppLayout = () => {
           </button>
         </div>
         <nav className="sidebar-nav">
-          {links.map((link) => (
+          {navLinks.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}

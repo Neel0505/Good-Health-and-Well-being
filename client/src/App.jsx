@@ -14,6 +14,8 @@ import Workouts from './pages/Workouts';
 import Progress from './pages/Progress';
 import Health from './pages/Health';
 import Profile from './pages/Profile';
+import Admin from './pages/Admin';
+import AdminRoute from './components/AdminRoute';
 
 const PublicOnly = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -54,6 +56,14 @@ const AppRoutes = () => (
         <Route path="progress" element={<Progress />} />
         <Route path="health" element={<Health />} />
         <Route path="profile" element={<Profile />} />
+        <Route
+          path="admin"
+          element={
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          }
+        />
       </Route>
     </Route>
 

@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
@@ -13,6 +13,8 @@ const workoutRoutes = require('./routes/workoutRoutes');
 const healthRoutes = require('./routes/healthRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const progressRoutes = require('./routes/progressRoutes');
+const nutritionRoutes = require('./routes/nutritionRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -38,6 +40,8 @@ app.use('/api/workouts', workoutRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/progress', progressRoutes);
+app.use('/api/nutrition', nutritionRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
